@@ -1,0 +1,7 @@
+port: "8000"
+db:
+  pqport: "5436"
+  host: "localhost"
+  username: "admin" 
+  database: "CRM"
+  sslmode: "disable"

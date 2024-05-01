@@ -1,0 +1,135 @@
+basePath: /
+definitions:
+  handler.HandleError:
+    properties:
+      message:
+        type: string
+    type: object
+  models.Order:
+    properties:
+      created_at:
+        type: string
+      customer_id:
+        type: integer
+      finish_at:
+        type: string
+      staff_id:
+        type: integer
+      started_at:
+        type: string
+      state_id:
+        type: integer
+    type: object
+host: localhost:8000
+info:
+  contact: {}
+  description: API Server for CRM System Application
+  title: CRM App API
+  version: "1.0"
+paths:
+  /order/add:
+    post:
+      consumes:
+      - application/json
+      description: create a new order
+      operationId: create-order
+      parameters:
+      - description: order
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/models.Order'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: integer
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.HandleError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.HandleError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.HandleError'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handler.HandleError'
+      summary: createOrder
+      tags:
+      - create-order
+  /order/get/:id:
+    get:
+      consumes:
+      - application/json
+      description: get order from db
+      operationId: get-order
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data
+          schema:
+            $ref: '#/definitions/models.Order'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.HandleError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.HandleError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.HandleError'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handler.HandleError'
+      summary: GetOrder
+      tags:
+      - order
+  /order/get/all:
+    get:
+      consumes:
+      - application/json
+      description: get all orders from db
+      operationId: get-orders
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Order'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.HandleError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handler.HandleError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.HandleError'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/handler.HandleError'
+      summary: GetAllOrders
+      tags:
+      - orders
+swagger: "2.0"
